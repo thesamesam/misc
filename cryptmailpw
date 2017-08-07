@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+# generates postfix-compatible mail hashes for use in mysql
+use strict;
+use warnings;
+use Digest::SHA;
+
+my $PW    = $ARGV[0];
+my $SALT  = '$6$' . substr(Digest::SHA::sha1_hex(rand()), -16);
+my $CRYPT = crypt($PW, $SALT);
+
+print "Your hashed password is:\r\n";
+print $CRYPT, "\r\n";
